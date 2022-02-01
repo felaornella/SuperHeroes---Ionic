@@ -1,0 +1,20 @@
+<ion-header>
+
+  <ion-toolbar>
+    <ion-title>Home</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+
+
+  <ion-content class="card-background-page">
+    
+    <ion-button (click)="goToPage()">Next</ion-button>
+
+    <ion-list>
+      <ion-list-header>Superheroes de Marvel</ion-list-header>
+      <ion-item *ngFor="let hero of marvelHeroes">
+        <ion-label>{{hero.nombre}}</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-content>
