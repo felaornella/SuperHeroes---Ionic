@@ -1,5 +1,8 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { SuperHeroeService } from 'src/app/service/superheroes.service';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -7,16 +10,64 @@ import { NavController } from '@ionic/angular';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  marvelHeroes= [
-    {nombre:"Spider-Man"},
-    {nombre:"Black Panther"},
-    {nombre:"Thor"},
-    {nombre:"Capitan America"}
-  ];
+  token="7374955662544922"
+  inputBusqueda=""
 
-  constructor(public navCtrl: NavController) {}
+  marvelHeroes=[]
+  tipoBusqueda="1"
+  tipos=["","text","number"]
 
-  goToPage(){
-    this.navCtrl.navigateForward("/my-page/Felipe")
+  constructor(public navCtrl: NavController,
+              private shService: SuperHeroeService,
+              private toastController: ToastController) {}
+
+  ngOnInit(){
+  }
+
+  buscar(){
+    if (this.tipoBusqueda=="1"){
+      this.shService.buscarSuperheroeNombre(this.inputBusqueda).subscribe(
+        (data:Response)=>{
+          if(data["error"]){
+            this.marvelHeroes=[]
+            this.toastNoResults();
+          }else{
+            this.marvelHeroes= data["results"];
+            document.getElementById("listaResultados").removeAttribute("hidden")
+          }
+        },
+        (err:HttpErrorResponse)=>{
+          console.log("Estado de error: " + err.status);
+        }
+      )
+    }else if (this.tipoBusqueda=="2"){
+      this.shService.buscarSuperheroeId(this.inputBusqueda).subscribe(
+        (data:Response)=>{
+          if(data["error"]){
+            this.marvelHeroes=[]
+            this.toastNoResults();
+          }else{
+            this.marvelHeroes= [{name:data["name"],image:{url:data["image"]["url"]},id:data["id"]}];
+            document.getElementById("listaResultados").removeAttribute("hidden")
+          }
+        },
+        (err:HttpErrorResponse)=>{
+          console.log("Estado de error: " + err.status);
+        }
+      )
+    }
+    
+  }
+
+  async toastNoResults() {
+    const toast = await this.toastController.create({
+      message: 'No hubo resultados',
+      duration: 2000,
+    });
+    toast.present();
+  }
+
+  showDetailSuperheroe(id){
+    this.navCtrl.navigateForward("/heroe-detalle/" + id)
   }
 }

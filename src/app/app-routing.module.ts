@@ -11,8 +11,8 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'my-page/:nombre',
-    loadChildren: () => import('./components/my-page/my-page.module').then( m => m.MyPagePageModule)
+    path: 'heroe-detalle/:id',
+    loadChildren: () => import('./components/heroe-detalle/heroe-detalle.module').then( m => m.HeroeDetallePageModule)
   },
 ];
 

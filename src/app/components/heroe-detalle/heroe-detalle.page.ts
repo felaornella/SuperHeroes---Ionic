@@ -1,24 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
+
 @Component({
-  selector: 'app-my-page',
-  templateUrl: './my-page.page.html',
-  styleUrls: ['./my-page.page.scss'],
+  selector: 'app-heroe-detalle',
+  templateUrl: './heroe-detalle.page.html',
+  styleUrls: ['./heroe-detalle.page.scss'],
 })
-export class MyPagePage{
-  nombre=""
+export class HeroeDetallePage implements OnInit {
+  id=""
 
   constructor(public navCtrl: NavController, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(){
     this.activatedRoute.params.subscribe((data)=>{
       console.log(data)
-      this.nombre=data.nombre
+      this.id=data.id
     })
   }
 
-  goToPage(){
+  volver(){
     this.navCtrl.navigateBack("/home")
   }
 

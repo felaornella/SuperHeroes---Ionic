@@ -1,20 +1,33 @@
-<ion-header>
+<ion-content class="card-background-page">
+  
+  <img src="https://i.ytimg.com/vi/RcNS0VhQgy0/maxresdefault.jpg" style="width: 15rem; display: block; margin: auto; margin-top: 3rem;">
+  
+  <ion-text color="dark" style="text-align: center;">
+    <h6>Ingrese el nombre o ID de un superheroe</h6>
+  </ion-text>
 
-  <ion-toolbar>
-    <ion-title>Home</ion-title>
-  </ion-toolbar>
+  <ion-input type="{{tipos[tipoBusqueda]}}" [(ngModel)]="inputBusqueda" placeholder="Ingrese un dato para buscar" style="max-width: 70%; display: block; margin: auto; margin-top: 1rem ;background-color: rgba(218, 218, 218, 0.445); border-radius: .5rem; text-align: center;" required></ion-input>
 
-</ion-header>
+  <ion-item style="width: 70%; display: block; margin-left: auto; margin-right: auto; margin-top: .5rem; background-color: rgba(218, 218, 218, 0.445);">
+    <ion-label>Tipo de Busqueda:</ion-label>
+    <ion-select [interfaceOptions]="customPopoverOptions" interface="popover" [(ngModel)]="tipoBusqueda" >
+      <ion-select-option value="1">Nombre</ion-select-option>
+      <ion-select-option value="2">ID</ion-select-option>
+    </ion-select>
+  </ion-item>
 
+  <ion-button (click)="buscar()" style="width: 50%; display: block; margin-left: auto; margin-right: auto; margin-top: 1.5rem;">Buscar</ion-button>
 
-  <ion-content class="card-background-page">
+  <ion-list id="listaResultados" hidden>
+    <div style="margin-top: 2rem;width:100%;padding: 1px;background: linear-gradient(90deg, rgba(104,91,111,0) 0%, rgba(238,238,238,1) 30%, rgba(238,238,238,1) 70%, rgba(224,224,224,0) 100%);">
+      <p style="text-align: center; font-weight: lighter;">Resultados ({{marvelHeroes.length}})</p>
+    </div>
+    <ion-item *ngFor="let hero of marvelHeroes" (click)="showDetailSuperheroe(hero.id)">
+      <ion-thumbnail slot="start">
+        <img src="{{hero.image.url}}">
+      </ion-thumbnail>
+      <ion-label>{{hero.name}}</ion-label>
+    </ion-item>
     
-    <ion-button (click)="goToPage()">Next</ion-button>
-
-    <ion-list>
-      <ion-list-header>Superheroes de Marvel</ion-list-header>
-      <ion-item *ngFor="let hero of marvelHeroes">
-        <ion-label>{{hero.nombre}}</ion-label>
-      </ion-item>
-    </ion-list>
-  </ion-content>
+  </ion-list>
+</ion-content>
