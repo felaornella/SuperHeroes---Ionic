@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SuperHeroeService } from 'src/app/service/superheroes.service';
 import { ToastController } from '@ionic/angular';
 import { HttpErrorResponse } from '@angular/common/http';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 @Component({
   selector: 'app-heroe-detalle',
   templateUrl: './heroe-detalle.page.html',
@@ -18,7 +19,8 @@ export class HeroeDetallePage implements OnInit {
   constructor(public navCtrl: NavController, 
               private activatedRoute: ActivatedRoute, 
               private shService: SuperHeroeService,
-              private toastController: ToastController) { }
+              private toastController: ToastController,
+              private socialSharing: SocialSharing) { }
 
   ngOnInit(){
     this.activatedRoute.params.subscribe((data)=>{
@@ -30,10 +32,8 @@ export class HeroeDetallePage implements OnInit {
         if(data["error"]){
           this.superheroe={}
           this.toast('Ocurrio un error inesperado');
-          document.getElementById("listadoAtributos").setAttribute("hidden","hidden")
         }else{
           this.superheroe= data;
-          // document.getElementById("listadoAtributos").removeAttribute("hidden")
           console.log(this.superheroe);
         }
       },
@@ -66,5 +66,13 @@ export class HeroeDetallePage implements OnInit {
     }
     console.log("Favoritos: ") 
     console.log(this.favoritos)
+  }
+
+  share(){
+    let imageUrl=this.superheroe["image"]["url"]
+    let text= "Te presento a " + this.superheroe["name"] + ", el nuevo superheroe que llego a la ciudad para salvarnos a todos. \nNo le digas a nadie, pero su verdadero nombre es " + this.superheroe["biography"]["full-name"]  + " 🤫"
+    console.log(imageUrl)
+    console.log(text)
+    this.socialSharing.share(text,"",imageUrl)
   }
 }
