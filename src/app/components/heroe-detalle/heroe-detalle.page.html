@@ -1,4 +1,142 @@
+
+<ion-header>
+    <ion-row>
+        <ion-col>
+            <ion-button (click)="volver()">Back</ion-button>
+        </ion-col>
+        <ion-col>
+            <ion-button style="float: right;" (click)="fav()">☆</ion-button>
+        </ion-col>
+    </ion-row>
+    
+</ion-header>
 <ion-content>
-<p style="text-align: center;">Elegiste al superheroe: <strong>{{id}}</strong></p>
-<ion-button (click)="volver()" style="width: 50%; display: block; margin-left: auto; margin-right: auto; margin-top: 1.5rem;">Volver</ion-button>
+    <div *ngIf="superheroe?.name">
+        <ion-card>
+            <ion-card-header style="text-align: center;">
+                <img [src]="superheroe.image.url" style="max-width: 10rem; margin: auto; display: block;">
+                <ion-card-subtitle>{{superheroe.biography["full-name"]}}</ion-card-subtitle>
+                <ion-card-title>{{superheroe.name}}</ion-card-title>
+            </ion-card-header>  
+        </ion-card>
+        <ion-text color="dark" style="text-align: center;">
+            <h5 style="border-bottom: 1px solid rgba(0,0,0,0.2); margin-left: 1rem; margin-right: 1rem;">DETALLE</h5>
+        </ion-text>
+        <ion-accordion-group [multiple]="true" [value]="" style="max-width: 80%; display: block; margin: auto; margin-bottom: 1rem;">
+            <ion-accordion value="placeOfBirth">
+                <ion-item slot="header" color="tertiary">
+                    <ion-label>Lugar de Nacimiento</ion-label>
+                </ion-item>
+            
+                <ion-list slot="content">
+                    <ion-item color="light">
+                    <ion-label>{{superheroe.biography["place-of-birth"]}}</ion-label>
+                    </ion-item>
+                </ion-list>
+            </ion-accordion>
+
+            <ion-accordion value="publisher">
+                <ion-item slot="header" color="tertiary">
+                    <ion-label>Editorial</ion-label>
+                </ion-item>
+            
+                <ion-list slot="content">
+                    <ion-item color="light">
+                    <ion-label text-wrap>{{superheroe.biography["publisher"]}}</ion-label>
+                    </ion-item>
+                </ion-list>
+            </ion-accordion>
+
+            <ion-accordion value="powerstats">
+                <ion-item slot="header" color="tertiary">
+                    <ion-label>Poderes</ion-label>
+                </ion-item>
+            
+                <ion-list slot="content">
+                    <ion-item color="light">
+                        <ion-label>Inteligencia</ion-label>
+                        <ion-note slot="end" color="dark" style="font-size: medium; margin-bottom: .5rem;"> {{superheroe.powerstats["intelligence"]}} </ion-note>
+                    </ion-item>
+
+                    <ion-item color="light">
+                        <ion-label>Fuerza</ion-label>
+                        <ion-note slot="end" color="dark" style="font-size: medium; margin-bottom: .5rem;"> {{superheroe.powerstats["strength"]}} </ion-note>
+                    </ion-item>
+
+                    <ion-item color="light">
+                        <ion-label>Velocidad</ion-label>
+                        <ion-note slot="end" color="dark" style="font-size: medium; margin-bottom: .5rem;"> {{superheroe.powerstats["speed"]}} </ion-note>
+                    </ion-item>
+
+                    <ion-item color="light">
+                        <ion-label>Durabilidad</ion-label>
+                        <ion-note slot="end" color="dark" style="font-size: medium; margin-bottom: .5rem;"> {{superheroe.powerstats["durability"]}} </ion-note>
+                    </ion-item>
+
+                    <ion-item color="light">
+                        <ion-label>Poder</ion-label>
+                        <ion-note slot="end" color="dark" style="font-size: medium; margin-bottom: .5rem;"> {{superheroe.powerstats["power"]}} </ion-note>
+                    </ion-item>
+
+                    <ion-item color="light">
+                        <ion-label>Combate</ion-label>
+                        <ion-note slot="end" color="dark" style="font-size: medium; margin-bottom: .5rem;"> {{superheroe.powerstats["combat"]}} </ion-note>
+                    </ion-item>
+                </ion-list>
+            </ion-accordion>
+
+            <ion-accordion value="appearance">
+                <ion-item slot="header" color="tertiary">
+                    <ion-label>Apariencia</ion-label>
+                </ion-item>
+            
+                <ion-list slot="content">
+                    <ion-item color="light">
+                        <ion-label>Genero</ion-label>
+                        <ion-note slot="end" color="dark" style="font-size: medium; margin-bottom: .5rem;"> {{superheroe.appearance["gender"]}} </ion-note>
+                    </ion-item>
+
+                    <ion-item color="light">
+                        <ion-label>Raza</ion-label>
+                        <ion-note text-wrap slot="end" color="dark" style="font-size: medium; margin-bottom: .5rem;"> {{superheroe.appearance["race"]}} </ion-note>
+                    </ion-item>
+
+                    <ion-item color="light">
+                        <ion-label>Altura</ion-label>
+                        <ion-note slot="end" color="dark" style="font-size: medium; margin-bottom: .5rem;"> {{superheroe.appearance["height"][1]}} </ion-note>
+                    </ion-item>
+
+                    <ion-item color="light">
+                        <ion-label>Peso</ion-label>
+                        <ion-note slot="end" color="dark" style="font-size: medium; margin-bottom: .5rem;"> {{superheroe.appearance["weight"][1]}} </ion-note>
+                    </ion-item>
+
+                    <ion-item color="light">
+                        <ion-label>Color de Ojos</ion-label>
+                        <ion-note slot="end" color="dark" style="font-size: medium; margin-bottom: .5rem;"> {{superheroe.appearance["eye-color"]}} </ion-note>
+                    </ion-item>
+
+                    <ion-item color="light">
+                        <ion-label>Color de Pelo</ion-label>
+                        <ion-note slot="end" color="dark" style="font-size: medium; margin-bottom: .5rem;"> {{superheroe.appearance["hair-color"]}} </ion-note>
+                    </ion-item>
+                </ion-list>
+            </ion-accordion>
+
+            <ion-accordion value="occupation">
+                <ion-item slot="header" color="tertiary">
+                    <ion-label>Ocupacion</ion-label>
+                </ion-item>
+            
+                <ion-list slot="content">
+                    <ion-item color="light">
+                    <ion-label text-wrap>{{superheroe.work["occupation"]}}</ion-label>
+                    </ion-item>
+                </ion-list>
+            </ion-accordion>
+        </ion-accordion-group>
+        
+    </div>
+
+
 </ion-content>
