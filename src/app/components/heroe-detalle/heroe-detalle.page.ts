@@ -3,8 +3,12 @@ import { NavController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { SuperHeroeService } from 'src/app/service/superheroes.service';
 import { ToastController } from '@ionic/angular';
+import { Platform } from '@ionic/angular';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { DatabaseService } from 'src/app/service/database.service';
+import { Superheroe } from 'src/app/models/superheroe';
+
 @Component({
   selector: 'app-heroe-detalle',
   templateUrl: './heroe-detalle.page.html',
@@ -15,12 +19,17 @@ export class HeroeDetallePage implements OnInit {
   superheroe={}
 
   favoritos=[]
+  favoritosBD=[]
 
   constructor(public navCtrl: NavController, 
               private activatedRoute: ActivatedRoute, 
               private shService: SuperHeroeService,
               private toastController: ToastController,
-              private socialSharing: SocialSharing) { }
+              private socialSharing: SocialSharing,
+              public platform: Platform,
+              public db: DatabaseService) {
+                this.db.createDatabase()
+              }
 
   ngOnInit(){
     this.activatedRoute.params.subscribe((data)=>{
@@ -34,7 +43,6 @@ export class HeroeDetallePage implements OnInit {
           this.toast('Ocurrio un error inesperado');
         }else{
           this.superheroe= data;
-          console.log(this.superheroe);
         }
       },
       (err:HttpErrorResponse)=>{
@@ -56,23 +64,44 @@ export class HeroeDetallePage implements OnInit {
   }
 
   fav(){
-    if (this.favoritos.includes(this.superheroe)){
-      this.favoritos.splice(this.favoritos.indexOf(this.superheroe),1);
-      this.toast("Superheroe removido a Mis Favoritos");
-    }else{
-      this.favoritos.push(this.superheroe)
-      this.toast("Superheroe agregado a Mis Favoritos");
+    this.db.buscarSiEsFavorito(this.superheroe["id"]).then((data)=>{
+      if (data.rows.length > 0){
+        this.quitarDeFavoritos(this.superheroe["id"]);
+        this.toast("Superheroe removido a Mis Favoritos");
+      }else{
+        this.agregarAFavoritos();
+        this.toast("Superheroe agregado a Mis Favoritos");
+      }
+    })
+  }
 
-    }
-    console.log("Favoritos: ") 
-    console.log(this.favoritos)
+  quitarDeFavoritos(idHeroe){
+    this.db.eliminarHeroe(idHeroe)
+  }
+
+  agregarAFavoritos(){
+    this.db.insertarHeroe(this.superheroe)
   }
 
   share(){
     let imageUrl=this.superheroe["image"]["url"]
     let text= "Te presento a " + this.superheroe["name"] + ", el nuevo superheroe que llego a la ciudad para salvarnos a todos. \nNo le digas a nadie, pero su verdadero nombre es " + this.superheroe["biography"]["full-name"]  + " 🤫"
-    console.log(imageUrl)
-    console.log(text)
     this.socialSharing.share(text,"",imageUrl)
+  }
+
+  getHeroes() {
+    this.db.getHeroes().then((data) => {
+      this.favoritosBD=[]
+      if (data.rows.length > 0) {
+        for (var i = 0; i < data.rows.length; i++) {
+          this.favoritosBD.push(data.rows.item(i));
+        }
+      }
+      console.log("FAVORITOS: ", this.favoritosBD)
+    });
+  }
+
+  imprimir(){
+    this.getHeroes();
   }
 }

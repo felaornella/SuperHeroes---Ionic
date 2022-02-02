@@ -7,11 +7,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { SQLite } from '@ionic-native/sqlite/ngx';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
-  providers: [SocialSharing,{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [SocialSharing,SQLite,{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
