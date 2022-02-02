@@ -2,11 +2,15 @@
 <ion-header>
     <ion-row>
         <ion-col>
-            <ion-button (click)="volver()">Back</ion-button>
+            <ion-button style="float: left;" (click)="volver()"><ion-icon name="arrow-back-outline"></ion-icon></ion-button>
+            
         </ion-col>
         <ion-col>
-            <ion-button style="float: right;" (click)="fav()">☆</ion-button>
-            <ion-button style="float: right;" (click)="share()">></ion-button>
+            <ion-button style="float: right;" (click)="fav()">
+                <ion-icon id="iconoFavoritoInactivo" name="star-outline"></ion-icon>
+                <ion-icon id="iconoFavoritoActivo" name="star" hidden></ion-icon>
+            </ion-button>
+            <ion-button style="float: right;" (click)="share()"><ion-icon name="share-social-outline"></ion-icon></ion-button>
         </ion-col>
     </ion-row>
     

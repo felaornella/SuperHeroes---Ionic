@@ -68,9 +68,13 @@ export class HeroeDetallePage implements OnInit {
       if (data.rows.length > 0){
         this.quitarDeFavoritos(this.superheroe["id"]);
         this.toast("Superheroe removido a Mis Favoritos");
+        document.getElementById("iconoFavoritoActivo").setAttribute("hidden","hidden")
+        document.getElementById("iconoFavoritoInactivo").removeAttribute("hidden")
       }else{
         this.agregarAFavoritos();
         this.toast("Superheroe agregado a Mis Favoritos");
+        document.getElementById("iconoFavoritoInactivo").setAttribute("hidden","hidden")
+        document.getElementById("iconoFavoritoActivo").removeAttribute("hidden")
       }
     })
   }
