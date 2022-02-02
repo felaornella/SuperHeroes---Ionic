@@ -1,11 +1,10 @@
-
-<ion-header>
+<ion-content>
     <ion-row>
         <ion-col>
             <ion-button style="float: left;" (click)="volver()"><ion-icon name="arrow-back-outline"></ion-icon></ion-button>
             
         </ion-col>
-        <ion-col>
+        <ion-col *ngIf="superheroe?.name">
             <ion-button style="float: right;" (click)="fav()">
                 <ion-icon id="iconoFavoritoInactivo" name="star-outline"></ion-icon>
                 <ion-icon id="iconoFavoritoActivo" name="star" hidden></ion-icon>
@@ -13,11 +12,8 @@
             <ion-button style="float: right;" (click)="share()"><ion-icon name="share-social-outline"></ion-icon></ion-button>
         </ion-col>
     </ion-row>
-    
-</ion-header>
-<ion-content>
     <div *ngIf="superheroe?.name">
-        <ion-card>
+        <ion-card style="background: rgba(255,255,255,0.7);">
             <ion-card-header style="text-align: center;">
                 <img [src]="superheroe.image.url" style="max-width: 10rem; margin: auto; display: block;">
                 <ion-card-subtitle>{{superheroe.biography["full-name"]}}</ion-card-subtitle>

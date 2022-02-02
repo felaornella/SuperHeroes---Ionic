@@ -15,6 +15,7 @@ import { Superheroe } from 'src/app/models/superheroe';
   styleUrls: ['./heroe-detalle.page.scss'],
 })
 export class HeroeDetallePage implements OnInit {
+  
   id=""
   superheroe={}
 
@@ -43,6 +44,12 @@ export class HeroeDetallePage implements OnInit {
           this.toast('Ocurrio un error inesperado');
         }else{
           this.superheroe= data;
+          this.db.buscarSiEsFavorito(this.superheroe["id"]).then((data)=>{
+            if (data.rows.length > 0){
+              document.getElementById("iconoFavoritoInactivo").setAttribute("hidden","hidden")
+              document.getElementById("iconoFavoritoActivo").removeAttribute("hidden")
+            }
+          })
         }
       },
       (err:HttpErrorResponse)=>{

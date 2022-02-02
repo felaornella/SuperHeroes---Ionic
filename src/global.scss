@@ -26,5 +26,9 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 ion-content{
-    --background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuZ25akrv1zIewaFkMnlrRGhaxpaO2QmNmZ4LK_frBn96lk8h5MFhJRDmd7GtKdUpNuh0&usqp=CAU") 0 0/100% 100% no-repeat;
+    --background:linear-gradient(180deg, rgba(121,146,181,0.6646008745294993) 0%, rgba(246,33,33,0.6505952722886029) 100%);
+}
+
+ion-item{
+    --background:rgba(255,255,255,0.5);
 }

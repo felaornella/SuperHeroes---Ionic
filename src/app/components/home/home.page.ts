@@ -10,6 +10,10 @@ import { ToastController } from '@ionic/angular';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  slideOpts = {
+    initialSlide: 0,
+    speed: 400
+  };
   token="7374955662544922"
   inputBusqueda=""
 
