@@ -29,13 +29,13 @@
         </ion-text>
         <ion-accordion-group [multiple]="true" [value]="" style="max-width: 80%; display: block; margin: auto; margin-bottom: 1rem;">
             <ion-accordion value="placeOfBirth">
-                <ion-item slot="header" color="tertiary">
+                <ion-item  slot="header" color="tertiary">
                     <ion-label>Lugar de Nacimiento</ion-label>
                 </ion-item>
             
                 <ion-list slot="content">
                     <ion-item color="light">
-                    <ion-label>{{superheroe.biography["place-of-birth"]}}</ion-label>
+                    <ion-label text-wrap>{{superheroe.biography["place-of-birth"]}}</ion-label>
                     </ion-item>
                 </ion-list>
             </ion-accordion>
@@ -135,14 +135,11 @@
             
                 <ion-list slot="content">
                     <ion-item color="light">
-                    <ion-label text-wrap>{{superheroe.work["occupation"]}}</ion-label>
+                        <ion-label text-wrap>{{superheroe.work["occupation"]}}</ion-label>
                     </ion-item>
                 </ion-list>
             </ion-accordion>
         </ion-accordion-group>
-        <ion-button (click)="agregar()">Agregar</ion-button>
-        <ion-button (click)="imprimir()">Imprimir</ion-button>
-        <ion-button (click)="borrarBD()">BorrarBD</ion-button>
     </div>
 
 

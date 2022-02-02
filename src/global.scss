@@ -24,3 +24,7 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+ion-content{
+    --background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuZ25akrv1zIewaFkMnlrRGhaxpaO2QmNmZ4LK_frBn96lk8h5MFhJRDmd7GtKdUpNuh0&usqp=CAU") 0 0/100% 100% no-repeat;
+}
