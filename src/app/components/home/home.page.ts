@@ -14,7 +14,7 @@ import { DatabaseService } from 'src/app/service/database.service';
 
 export class HomePage {
   slideOpts = {
-    initialSlide: 1,
+    initialSlide: 0,
     speed: 400
   };
   token="7374955662544922"
