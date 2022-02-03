@@ -4,11 +4,11 @@
       <img src="assets/icono/logo2.png" style="width: 7rem; display: block; margin: auto; margin-top: 3rem;">
   
       <ion-text color="dark" style="text-align: center; text-transform: uppercase;">
-        <h6 style=" margin-bottom: 0;">Ingrese el nombre o ID de un</h6>
-        <h6 style=" margin-top: 0;">heroe o villano</h6>
+        <h6 style="font-family: 'Red Hat Text', sans-serif;font-weight:500; margin-bottom: 0;">Ingrese el nombre o ID de un</h6>
+        <h6 style="font-family: 'Red Hat Text', sans-serif;font-weight:500; margin-top: 0;">heroe o villano</h6>
       </ion-text>
 
-      <ion-input type="{{tipos[tipoBusqueda]}}" [(ngModel)]="inputBusqueda" placeholder="Ingrese un dato para buscar" style="max-width: 70%; display: block; margin: auto; margin-top: 1rem ;background-color: rgba(218, 218, 218, 0.445); border-radius: .5rem; text-align: center; font-size: 1rem;" required></ion-input>
+      <ion-input id="inputData" clear-input  type="{{tipos[tipoBusqueda]}}" [(ngModel)]="inputBusqueda" placeholder="Ingrese un dato para buscar" style="max-width: 70%; margin: auto; margin-top: 1rem ;background-color: rgba(218, 218, 218, 0.445); border-radius: .5rem; text-align: center; font-size: 1rem;" required></ion-input>
 
       <ion-item style="width: 70%; display: block; margin-left: auto; margin-right: auto; margin-top: .5rem;">
         <ion-label>Tipo de Busqueda:</ion-label>
@@ -22,7 +22,7 @@
 
       <ion-list id="listaResultados" style="background: rgba(255,255,255,0.25); margin-top: 2rem; padding-top: 0;" hidden>
         <div style="width:100%;padding: 1px;background: linear-gradient(90deg, rgba(104,91,111,0) 0%, rgba(238,238,238,.5) 30%, rgba(238,238,238,1) 70%, rgba(224,224,224,0) 100%);">
-          <p style="text-align: center; font-weight: lighter;">Resultados ({{marvelHeroes.length}})</p>
+          <p style="text-align: center; font-weight: lighter; color: black;">Resultados ({{marvelHeroes.length}})</p>
         </div>
         <ion-item *ngFor="let hero of marvelHeroes" (click)="showDetailSuperheroe(hero.id)" class="resultado">
           <ion-thumbnail slot="start">
@@ -35,7 +35,20 @@
     </ion-slide>
 
     <ion-slide>
-      <h1>Slide 2</h1>
+      <ion-text color="dark" style="text-align: center; text-transform: uppercase;">
+        <h6 style="font-family: 'Red Hat Text', sans-serif;font-weight:500; font-size: 1.5rem; margin-top: 2rem;">Mis Favoritos</h6>
+      </ion-text>
+
+      <ion-list id="listaFavoritos" style="background: rgba(255,255,255,0.25); margin-top: 1rem; padding: 0;">
+        <ion-item *ngFor="let hero of favoritos" class="resultado">
+          <ion-thumbnail slot="start" (click)="showDetailSuperheroe(hero.id)">
+            <img src="{{hero.image_url}}">
+          </ion-thumbnail>
+          <ion-label (click)="showDetailSuperheroe(hero.id_heroe)">{{hero.name}}</ion-label>
+          <ion-icon name="star" slot="end" (click)="desfavear(hero.id_heroe)"></ion-icon>
+        </ion-item>
+        
+      </ion-list>
     </ion-slide>
     
   </ion-slides>

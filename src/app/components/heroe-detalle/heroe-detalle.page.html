@@ -7,7 +7,7 @@
         <ion-col *ngIf="superheroe?.name">
             <ion-button style="float: right;" (click)="fav()">
                 <ion-icon id="iconoFavoritoInactivo" name="star-outline"></ion-icon>
-                <ion-icon id="iconoFavoritoActivo" name="star" hidden></ion-icon>
+                <ion-icon id="iconoFavoritoActivo" class="iconoFavoritoActivo" name="star" hidden></ion-icon>
             </ion-button>
             <ion-button style="float: right;" (click)="share()"><ion-icon name="share-social-outline"></ion-icon></ion-button>
         </ion-col>
