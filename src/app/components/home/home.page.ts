@@ -5,6 +5,7 @@ import { SuperHeroeService } from 'src/app/service/superheroes.service';
 import { ToastController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { DatabaseService } from 'src/app/service/database.service';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -30,9 +31,16 @@ export class HomePage {
               private shService: SuperHeroeService,
               private toastController: ToastController,
               private alertController: AlertController,
+              private platform: Platform,
               public db: DatabaseService) {
-                this.db.createDatabase()
-                  .then(()=>this.cargarHeroesFavoritos());
+                // this.db.createDatabase()
+                  // .then(()=>this.cargarHeroesFavoritos());
+                this.platform.ready().then(()=>{
+                  this.db.createDatabase().then(()=>{
+                    this.cargarHeroesFavoritos();
+                  })
+                })
+                // this.cargarHeroesFavoritos();
               }
 
               

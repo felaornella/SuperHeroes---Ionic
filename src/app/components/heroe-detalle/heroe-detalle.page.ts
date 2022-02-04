@@ -3,7 +3,6 @@ import { NavController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { SuperHeroeService } from 'src/app/service/superheroes.service';
 import { ToastController } from '@ionic/angular';
-import { Platform } from '@ionic/angular';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { DatabaseService } from 'src/app/service/database.service';
@@ -28,10 +27,7 @@ export class HeroeDetallePage implements OnInit {
               private shService: SuperHeroeService,
               private toastController: ToastController,
               private socialSharing: SocialSharing,
-              public platform: Platform,
-              public db: DatabaseService) {
-                this.db.createDatabase()
-              }
+              public db: DatabaseService) {}
 
   ngOnInit(){
     this.activatedRoute.params.subscribe((data)=>{

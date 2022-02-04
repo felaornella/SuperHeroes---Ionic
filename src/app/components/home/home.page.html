@@ -40,7 +40,7 @@
       </ion-text>
       <ion-list id="listaFavoritos" style="background: rgba(255,255,255,0.25); margin-top: 1rem; padding: 0;">
         <ion-item *ngFor="let hero of favoritos" class="resultado">
-          <ion-thumbnail slot="start" (click)="showDetailSuperheroe(hero.id)">
+          <ion-thumbnail slot="start" (click)="showDetailSuperheroe(hero.id_heroe)">
             <img src="{{hero.image_url}}">
           </ion-thumbnail>
           <ion-label (click)="showDetailSuperheroe(hero.id_heroe)">{{hero.name}}</ion-label>
