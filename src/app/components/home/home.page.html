@@ -36,9 +36,8 @@
 
     <ion-slide>
       <ion-text color="dark" style="text-align: center; text-transform: uppercase;">
-        <h6 style="font-family: 'Red Hat Text', sans-serif;font-weight:500; font-size: 1.5rem; margin-top: 2rem;">Mis Favoritos</h6>
+        <h6 style="font-family: 'Red Hat Text', sans-serif;font-weight:500; font-size: 1.5rem;">Mis Favoritos</h6>
       </ion-text>
-
       <ion-list id="listaFavoritos" style="background: rgba(255,255,255,0.25); margin-top: 1rem; padding: 0;">
         <ion-item *ngFor="let hero of favoritos" class="resultado">
           <ion-thumbnail slot="start" (click)="showDetailSuperheroe(hero.id)">
@@ -47,8 +46,11 @@
           <ion-label (click)="showDetailSuperheroe(hero.id_heroe)">{{hero.name}}</ion-label>
           <ion-icon name="star" slot="end" (click)="desfavear(hero.id_heroe)"></ion-icon>
         </ion-item>
-        
       </ion-list>
+      <ion-refresher slot="fixed" (ionRefresh)="reload($event)">
+        <ion-refresher-content>
+        </ion-refresher-content>
+      </ion-refresher>
     </ion-slide>
     
   </ion-slides>

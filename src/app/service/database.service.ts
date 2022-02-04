@@ -65,7 +65,19 @@ export class DatabaseService {
 
     async buscarSiEsFavorito(id_heroe){
         return this.db.executeSql(
-            `SELECT id from superheroes_favoritos where id_heroe = ${id_heroe}`,
+            `SELECT * from superheroes_favoritos where id_heroe = ${id_heroe}`,
+            []
+        ).then((res)=>{
+            return res;
+        })
+        .catch((e)=>{
+            return JSON.stringify(e)
+        })
+    }
+
+    async buscarSiEsFavoritoPorIDLocal(id){
+        return this.db.executeSql(
+            `SELECT id from superheroes_favoritos where id = ${id}`,
             []
         ).then((res)=>{
             return res;

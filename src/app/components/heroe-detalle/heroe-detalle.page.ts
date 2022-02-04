@@ -18,9 +18,10 @@ export class HeroeDetallePage implements OnInit {
   
   id=""
   superheroe={}
-
+  no_connection=false
   favoritos=[]
   favoritosBD=[]
+  busquedaLocal=false
 
   constructor(public navCtrl: NavController, 
               private activatedRoute: ActivatedRoute, 
@@ -53,7 +54,44 @@ export class HeroeDetallePage implements OnInit {
         }
       },
       (err:HttpErrorResponse)=>{
-        console.log("Estado de error: " + err.status);
+        this.db.buscarSiEsFavorito(this.id).then((data)=>{
+          if (data.rows.length > 0){
+            let heroe=data.rows.item(0)
+            this.superheroe={
+              image:{url:""},
+              name:heroe.name,
+              biography:{"full-name":heroe.b_full_name,
+                         "place-of-birth":heroe.b_place_of_birth,
+                         "publisher":heroe.b_publisher
+                        },
+              powerstats:{"intelligence":heroe.p_intelligence,
+                          "strength":heroe.p_strength,
+                          "speed":heroe.p_speed,
+                          "durability":heroe.p_durability,
+                          "power":heroe.p_power,
+                          "combat":heroe.p_combat
+                        },
+              appearance:{"gender":heroe.a_gender,
+                          "race":heroe.a_race,
+                          "height":["0",heroe.a_height],
+                          "weight":["0",heroe.a_weight],
+                          "eye-color":heroe.a_eye_color,
+                          "hair-color":heroe.a_hair_color,
+                        },
+              work:{"occupation":heroe.w_occupation}
+            }
+            this.busquedaLocal=true
+            this.toast("Error de conexión. Datos recuperados localmente");
+          }else{
+            this.superheroe={}
+            this.no_connection=true;
+            document.getElementById("animationContainer1").setAttribute("hidden","hidden")
+          }
+        }).catch((err)=>{
+          console.log("Error Buscando: ", err)
+          this.no_connection=true;
+          document.getElementById("animationContainer1").setAttribute("hidden","hidden")
+        })
       }
     )
   }
@@ -100,19 +138,4 @@ export class HeroeDetallePage implements OnInit {
     this.socialSharing.share(text,"",imageUrl)
   }
 
-  getHeroes() {
-    this.db.getHeroes().then((data) => {
-      this.favoritosBD=[]
-      if (data.rows.length > 0) {
-        for (var i = 0; i < data.rows.length; i++) {
-          this.favoritosBD.push(data.rows.item(i));
-        }
-      }
-      console.log("FAVORITOS: ", this.favoritosBD)
-    });
-  }
-
-  imprimir(){
-    this.getHeroes();
-  }
 }

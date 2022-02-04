@@ -31,9 +31,11 @@ export class HomePage {
               private toastController: ToastController,
               private alertController: AlertController,
               public db: DatabaseService) {
-                this.db.createDatabase().then(()=>this.cargarHeroesFavoritos());
+                this.db.createDatabase()
+                  .then(()=>this.cargarHeroesFavoritos());
               }
 
+              
   cargarHeroesFavoritos(){
     this.db.getHeroes().then((data) => {
       this.favoritos=[]
@@ -44,6 +46,16 @@ export class HomePage {
       }
     })
   }
+
+  reload(event){
+    setTimeout(()=>{
+      this.db.createDatabase().then(()=>{
+        this.cargarHeroesFavoritos();
+        event.target.complete();
+      })
+    },2000)
+  }
+
   ngOnInit(){
     document.getElementById("inputData").addEventListener("ionChange",()=>{
       if ((<HTMLInputElement>document.getElementById("inputData")).value ==""){
@@ -66,6 +78,7 @@ export class HomePage {
         },
         (err:HttpErrorResponse)=>{
           console.log("Estado de error: " + err.status);
+          this.toastMsg("Error de conexión. Intente de nuevo más tarde.")
         }
       )
     }else if (this.tipoBusqueda=="2"){
@@ -81,6 +94,7 @@ export class HomePage {
         },
         (err:HttpErrorResponse)=>{
           console.log("Estado de error: " + err.status);
+          this.toastMsg("Error de conexión. Intente de nuevo más tarde.")
         }
       )
     }
